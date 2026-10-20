@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#05060d">
+  <meta name="description" content="Neon Cortex: The Quantum Breach — a cyberpunk tower defence. Defend the last quantum mainframe from adaptive rogue malware.">
+  <title>Neon Cortex: The Quantum Breach</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <canvas id="bg"></canvas>
+
+  <div id="app">
+    <!-- ============================================================ MAIN MENU -->
+    <section id="scr-menu" class="screen active">
+      <div class="menu-wrap">
+        <div class="kicker">// ICE PROTOCOL v9.2 — PRIME ARCHITECT ONLINE</div>
+        <h1 class="title glitch" data-text="NEON CORTEX">NEON CORTEX</h1>
+        <div class="subtitle">THE QUANTUM BREACH</div>
+        <div class="frag-pill big">◆ <span class="frag-count">0</span> <small>MEMORY FRAGMENTS</small></div>
+        <nav class="menu-buttons">
+          <button class="btn primary big" data-action="sectors">▶ Breach Sectors</button>
+          <button class="btn" data-action="skills">⬡ Prime Skill Tree</button>
+          <button class="btn" data-action="briefing">ⓘ Mission Briefing</button>
+          <button class="btn" data-action="settings">⚙ Settings</button>
+        </nav>
+        <p class="lore">You are the <b>Prime Architect</b> — an advanced Intrusion Countermeasures AI defending the world's last quantum mainframe. An endless swarm of adaptive malware is converging on the <b>Core Kernel</b>. Hold the line.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================ SECTORS -->
+    <section id="scr-sectors" class="screen">
+      <header class="scr-head">
+        <button class="btn small" data-action="menu">◀ Back</button>
+        <h2>Select Breach Sector</h2>
+        <div class="frag-pill">◆ <span class="frag-count">0</span></div>
+      </header>
+      <div id="sector-list" class="sector-grid"></div>
+      <p class="hint center">Clear sectors to unlock deeper layers of the mainframe. Replay any sector to farm Memory Fragments.</p>
+    </section>
+
+    <!-- ============================================================ SKILL TREE -->
+    <section id="scr-skills" class="screen">
+      <header class="scr-head">
+        <button class="btn small" data-action="menu">◀ Back</button>
+        <h2>Prime Architect Skill Tree</h2>
+        <div class="frag-pill">◆ <span class="frag-count">0</span></div>
+      </header>
+      <div id="skill-tree" class="skill-tree"></div>
+      <footer class="skill-foot">
+        <span class="hint">Unlock nodes top-to-bottom within a branch. Upgrades apply to every future match.</span>
+        <button class="btn small ghost" data-action="respec">↺ Respec (full refund)</button>
+      </footer>
+    </section>
+
+    <!-- ============================================================ GAME -->
+    <section id="scr-game" class="screen">
+      <header id="hud">
+        <div class="hud-block core">
+          <label>CORE KERNEL</label>
+          <div class="core-bar"><div id="hud-core-bar"></div></div>
+          <span id="hud-core">20/20</span>
+        </div>
+        <div class="hud-block">
+          <label>BANDWIDTH</label>
+          <span id="hud-bw" class="bw">0</span>
+        </div>
+        <div class="hud-block">
+          <label>WAVE</label>
+          <span id="hud-wave">0/10</span>
+        </div>
+        <div class="hud-block sector hide-sm">
+          <label id="hud-code">SECTOR</label>
+          <span id="hud-sector">—</span>
+        </div>
+        <div class="hud-spacer"></div>
+        <button id="btn-kill" class="btn hud-btn kill hidden" title="The Kill Switch [K]">☢ <span class="lbl">KILL SWITCH</span> <span id="kill-cd"></span></button>
+        <div class="speed-group" role="group" aria-label="Game speed">
+          <button class="btn hud-btn" data-speed="1" title="Normal speed">1×</button>
+          <button class="btn hud-btn" data-speed="2" title="Double speed">2×</button>
+          <button class="btn hud-btn" data-speed="3" title="Triple speed">3×</button>
+        </div>
+        <button id="btn-mute" class="btn hud-btn" title="Mute [M]">♪</button>
+        <button id="btn-pause" class="btn hud-btn" title="Pause [P / Esc]">❚❚</button>
+      </header>
+      <div id="game-main">
+        <div id="canvas-wrap">
+          <canvas id="game"></canvas>
+          <div id="toasts"></div>
+        </div>
+        <aside id="side">
+          <div class="side-section build">
+            <h3>ICE Towers</h3>
+            <div id="build-list"></div>
+          </div>
+          <div class="side-section info" id="info-panel"></div>
+          <div class="side-section wave-section">
+            <div class="wave-head"><span>NEXT WAVE</span><span id="wave-tag"></span></div>
+            <div id="wave-preview"></div>
+            <button id="btn-wave" class="btn primary wave-btn">▶ Initiate Wave 1</button>
+            <label class="auto"><input type="checkbox" id="chk-auto"> Auto-initiate waves</label>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </div>
+
+  <div id="modal" class="hidden"><div class="modal-box" id="modal-box"></div></div>
+  <div class="crt" aria-hidden="true"></div>
+
+  <script src="js/util.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/save.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
